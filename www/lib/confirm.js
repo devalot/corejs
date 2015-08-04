@@ -11,10 +11,15 @@ Confirm.prototype = {
 
   assert: function(value, message) {
     if (!value) {
-      console.error(message);
       this.record(false, message);
       throw message;
     }
+  },
+
+  assertInstanceOf: function(value, type) {
+    var message = "expected instance of " + type.toString() + " " +
+        "but got " + value.constructor.toString() + " instead";
+    this.assert(value.constructor == type, message);
   },
 
   refute: function(value, message) {
@@ -22,6 +27,9 @@ Confirm.prototype = {
   },
 
   record: function(status, message) {
+    message = this.currentTest + ": " + message;
+    console.log(message);
+
     var li = $("<li></li>").appendTo(this.element);
     li.text(message);
 
@@ -32,22 +40,25 @@ Confirm.prototype = {
     }
   },
 
-  assert_values: function(checks) {
+  assertValues: function(checks) {
+    this.currentTest = "Number of calls to confirm";
+
     this.refute(this.values.length < checks.length, "You didn't call test.confirm enough times");
     this.refute(this.values.length > checks.length, "You called test.confirm too many times");
 
     for (var i=0; i < checks.length; ++i) {
       var value = this.values[i],
-          check = checks[i],
-          name  = "Exercise " + (i+1);
+          check = checks[i];
+
+      this.currentTest = "Exercise " + (i+1);
 
       if (check instanceof Function) {
-        this.assert(check(value, this, name), name + ": failed");
+        this.assert(check(value, this), "failed");
       } else {
-        this.assert(value === check, name + ": Should have been " + check.toString());
+        this.assert(value === check, "Should have been " + check.toString());
       }
 
-      this.record(true, name + ": passed");
+      this.record(true, "passed");
     }
   },
 };

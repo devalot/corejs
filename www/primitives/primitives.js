@@ -14,12 +14,15 @@ Primitives = function(test) {
   //
   // Create a string with at least 5 characters.  Give the string to
   // the test.confirm() function.
+  console.log("Exercise 2");
 
 
   /****************************************************************************/
   // EXERCISE 3:
-
-
+  //
+  // Create an array that has at least 5 elements.  Give the array to
+  // the test.confirm() function.
+  console.log("Exercise 3");
 
 
 
