@@ -1,6 +1,7 @@
 Confirm = function() {
   this.values = [];
   this.element = $("<ul></ul>").appendTo("body");
+  this.currentTest = "Exercise 1";
 };
 
 Confirm.prototype = {
@@ -17,6 +18,10 @@ Confirm.prototype = {
   },
 
   assertInstanceOf: function(value, type) {
+    this.assert(value !== undefined &&
+                value !== null, "expected instance of " + type.toString() +
+                " but got undefined or null instead");
+
     var message = "expected instance of " + type.toString() + " " +
         "but got " + value.constructor.toString() + " instead";
     this.assert(value.constructor == type, message);
@@ -53,7 +58,14 @@ Confirm.prototype = {
       this.currentTest = "Exercise " + (i+1);
 
       if (check instanceof Function) {
-        this.assert(check(value, this), "failed");
+        var result = check(value, this);
+
+        if (result === null) {
+          this.record(true, "skipped");
+          continue;
+        }
+
+        this.assert(result, "failed");
       } else {
         this.assert(value === check, "Should have been " + check.toString());
       }
