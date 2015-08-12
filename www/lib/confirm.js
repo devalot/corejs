@@ -27,6 +27,16 @@ Confirm.prototype = {
     this.assert(value.constructor == type, message);
   },
 
+  assertEqual: function(expected, actual) {
+    if (actual === undefined) actual = "undefined";
+
+    if (expected !== actual) {
+      var message = "expected '" + expected + "' but got '" + actual + "' instead";
+      this.record(false, message);
+      throw message;
+    }
+  },
+
   refute: function(value, message) {
     this.assert(!value, message);
   },
