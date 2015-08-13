@@ -1,3 +1,4 @@
+// <<: ctor
 var Message = function(plain, secret) {
   this.getPlain = function() {
     return plain;
@@ -7,6 +8,7 @@ var Message = function(plain, secret) {
     return secret;
   };
 };
+// :>>
 
 Message.prototype = {
   getBoth: function() {
@@ -15,6 +17,9 @@ Message.prototype = {
   }
 };
 
+// <<: new
 var m = new Message("HI", "BYE");
+// :>>
+
 console.log(m.getPlain());
 console.log(m.getBoth());
