@@ -4,7 +4,9 @@
   "description": "Core JavaScript Exercises and Demos",
   "main": "bin/server.js",
   "directories": {
-    "example": "examples"
+    "example": "examples",
+    "bin": "bin",
+    "www": "www"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,5 +16,9 @@
   "dependencies": {
     "jshint": "^2.8.0",
     "mockapie": "git://pmade.com/mockapie"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/devalot/corejs.git"
   }
 }
