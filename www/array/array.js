@@ -1,6 +1,10 @@
 ArrayExercise = function(test) {
 
   /****************************************************************************/
+  // Array Documentation:
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+  /****************************************************************************/
   // TEST DATA:
   var users = [
     {id: 1, username: "caiva", age: 30},
