@@ -16,6 +16,9 @@ Primitives = function(test) {
   // the test.confirm() function.
   console.log("Exercise 2");
 
+  var string = "Hello";
+  test.confirm(string);
+
 
   /****************************************************************************/
   // EXERCISE 3:
@@ -24,6 +27,8 @@ Primitives = function(test) {
   // the test.confirm() function.
   console.log("Exercise 3");
 
+  var array = [1, "Hello", true, 3, 4];
+  test.confirm(array);
 
 
   // Don't change anything below this line.
