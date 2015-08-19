@@ -28,4 +28,4 @@
 
   // Your code here.
 
-}); // Keep this line.
+})(); // Keep this line.
