@@ -74,4 +74,4 @@
   li5.appendChild(flag5);
   bucketList.appendChild(li5);
 
-}); // Keep this line.
+})(); // Keep this line.
