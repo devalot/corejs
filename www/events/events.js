@@ -5,6 +5,9 @@
 // Inside the anonymous function below, write the necessary code so
 // that clicking any "Click Me" element will increment its paired
 // counter.
+//
+// BONUS: Create a new element on the page that displays the sum of
+// all other counters.
 (function() {
 
   // Your code here.
