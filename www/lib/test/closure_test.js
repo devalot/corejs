@@ -18,7 +18,8 @@ $(function() {
     },
   ];
 
-  var confirm  = new Confirm();
-  var closures = ClosureExercise(confirm);
-  confirm.assertValues(checks);
+  new Confirm(function(confirm) {
+    ClosureExercise(confirm);
+    confirm.assertValues(checks);
+  });
 });

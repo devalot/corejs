@@ -1,7 +1,9 @@
-Confirm = function() {
+Confirm = function(f) {
   this.values = [];
   this.element = $("<ul></ul>").appendTo("body");
   this.currentTest = "Exercise 1";
+
+  if (f) this.wrap(f);
 };
 
 Confirm.prototype = {
@@ -13,7 +15,7 @@ Confirm.prototype = {
   assert: function(value, message) {
     if (!value) {
       this.record(false, message);
-      throw message;
+      this.abort(message);
     }
   },
 
@@ -33,7 +35,7 @@ Confirm.prototype = {
     if (expected !== actual) {
       var message = "expected '" + expected + "' but got '" + actual + "' instead";
       this.record(false, message);
-      throw message;
+      this.abort(message);
     }
   },
 
@@ -55,6 +57,25 @@ Confirm.prototype = {
     }
   },
 
+  abort: function(message) {
+    var e = new Error(message);
+    e.from_confirm = true;
+    throw(e);
+  },
+
+  wrap: function(f) {
+    try {
+      return f(this);
+    } catch (e) {
+      if (! ("from_confirm" in e)) {
+        var msg = e.toString() + " (check the console)";
+        this.currentTest = "EXCEPTION THROWN";
+        this.record(false, msg);
+        throw(e);
+      }
+    }
+  },
+
   assertValues: function(checks) {
     this.currentTest = "Number of calls to confirm";
 
@@ -62,13 +83,14 @@ Confirm.prototype = {
     this.refute(this.values.length > checks.length, "You called test.confirm too many times");
 
     for (var i=0; i < checks.length; ++i) {
-      var value = this.values[i],
-          check = checks[i];
+      var value  = this.values[i],
+          check  = checks[i],
+          result = null;
 
       this.currentTest = "Exercise " + (i+1);
 
       if (check instanceof Function) {
-        var result = check(value, this);
+        result = check(value, this);
 
         if (result === null) {
           this.record(true, "skipped");

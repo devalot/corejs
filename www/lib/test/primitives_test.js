@@ -22,7 +22,8 @@ $(function() {
     }
   ];
 
-  var confirm = new Confirm();
-  var primitives = Primitives(confirm);
-  confirm.assertValues(checks);
+  new Confirm(function(confirm) {
+    Primitives(confirm);
+    confirm.assertValues(checks);
+  });
 });

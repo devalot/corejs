@@ -42,7 +42,8 @@ $(function() {
 
   ];
 
-  var confirm = new Confirm();
-  var control = ControlFlow(confirm);
-  confirm.assertValues(checks);
+  new Confirm(function(confirm) {
+    ControlFlow(confirm);
+    confirm.assertValues(checks);
+  });
 });

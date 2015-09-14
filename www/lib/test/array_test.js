@@ -56,7 +56,8 @@ $(function() {
     },
   ];
 
-  var confirm = new Confirm();
-  var control = ArrayExercise(confirm);
-  confirm.assertValues(checks);
+  new Confirm(function(confirm) {
+    ArrayExercise(confirm);
+    confirm.assertValues(checks);
+  });
 });
