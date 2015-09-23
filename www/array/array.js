@@ -20,7 +20,9 @@ ArrayExercise = function(test) {
   // the TEST DATA above that only includes users under the age of 18.
   test.confirm(function() {
 
-    // Your code here.
+    return users.filter(function(user) {
+      return user.age < 18;
+    });
 
   });
 
@@ -32,7 +34,9 @@ ArrayExercise = function(test) {
   // above, in the same order.
   test.confirm(function() {
 
-    // Your code here.
+    return users.map(function(e) {
+      return e.username;
+    });
 
   });
 
@@ -43,8 +47,12 @@ ArrayExercise = function(test) {
   // above (TEST DATA) in reverse order.  Do not use the built-in
   // reverse function.
   test.confirm(function() {
+    var result = [];
 
-    // Your code here.
+    for (var j=0, i=users.length - 1; i >= 0; --i, ++j) {
+      result[j] = users[i];
+    }
 
+    return result;
   });
 };
