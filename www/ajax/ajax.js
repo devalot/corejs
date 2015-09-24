@@ -18,6 +18,50 @@
 // artist ID.)
 (function() {
 
-  // Your code here.
+  var button = document.querySelector("button");
+  var artists = document.getElementById("artists");
+
+  button.addEventListener("click", function(e) {
+    var request = new XMLHttpRequest();
+
+    request.addEventListener("load", function() {
+      if (request.status !== 200) return;
+      var objects = JSON.parse(request.responseText);
+
+      objects.forEach(function(artist) {
+        var li = document.createElement("li");
+        li.textContent = artist.name;
+        li.setAttribute("data-artist-id", artist.id);
+        artists.appendChild(li);
+      });
+
+    });
+
+    request.open("GET", "/api/artists");
+    request.send();
+  });
+
+  var details = document.getElementById("details");
+
+  artists.addEventListener("click", function(e) {
+    var id = e.target.getAttribute("data-artist-id");
+    if (id === null) return;
+
+    var request = new XMLHttpRequest();
+
+    request.addEventListener("load", function() {
+      if (request.status !== 200) return;
+      var info = JSON.parse(request.responseText);
+
+      for (var p in info) {
+        var li = document.createElement("li");
+        li.textContent = p + ": " + info[p];
+        details.appendChild(li);
+      }
+    });
+
+    request.open("GET", "/api/artists/" + id);
+    request.send();
+  });
 
 })();

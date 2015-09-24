@@ -10,6 +10,30 @@
 // all other counters.
 (function() {
 
-  // Your code here.
+  var body = document.querySelector("body");
+
+  // Bonus:
+  var globalCounter = document.createElement("span");
+  globalCounter.textContent = "0";
+
+  var gcParent = document.createElement("p");
+  gcParent.textContent = "Global Counter: ";
+  gcParent.appendChild(globalCounter);
+  body.insertBefore(gcParent, body.childNodes[0]);
+
+  var updateGlobal = function() {
+    globalCounter.textContent =
+      parseInt(globalCounter.textContent) + 1;
+  };
+
+  // Exercise 1:
+  body.addEventListener("click", function(event) {
+    if (event.target.textContent !== "Click Me") return;
+    var counter = event.target.nextElementSibling;
+    counter.textContent = parseInt(counter.textContent) + 1;
+    updateGlobal();
+    event.preventDefault();
+  });
+
 
 })();
