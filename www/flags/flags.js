@@ -1,15 +1,45 @@
 /*
- * Using only the built-in DOM methods, find the elements that have
- * the text "FLAG" inside them and move them (the element) into the
- * div with id of #bucket.
+ * Read the index.html file and locate all of the elements that have
+ * text content containing the word "FLAG" followed by a number ("#1",
+ * "#2", etc.)
+ *
+ * Using the standard DOM methods, move these elements into the `ul'
+ * element that is inside the `div' with the ID of `#bucket'.  Move
+ * the entire element, not just the text content.  Ensure you maintain
+ * proper HTML structure by enclosing the FLAG elements in `li'
+ * elements when necessary.
+ *
+ * The FLAG elements in the `ul' should be listed in ascending
+ * (numeric) order.
+ *
+ * Tips:
+ *
+ * Move them one at a time.  Some of them will have to be moved by
+ * selecting a parent element and then using the traversal methods to
+ * find the correct FLAG element.
  *
  * Hint: you can use:
  *
- *   - document.getElementById
- *   - document.getElementsByTagName
- *   - document.getElementsByClassName
- *   - document.querySelector
- *   - document.querySlectorAll
+ *   - getElementById
+ *     https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById
+ *
+ *   - getElementsByTagName
+ *     https://developer.mozilla.org/en-US/docs/Web/API/Element/getElementsByTagName
+ *
+ *   - getElementsByClassName
+ *     https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByClassName
+ *
+ *   - querySelector
+ *     https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector
+ *
+ *   - querySelectorAll
+ *     https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll
+ *
+ *   - createElement
+ *     https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement
+ *
+ *   - appendChild
+ *     https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild
  *
  * and all the parent, child and sibling selectors, along with the DOM
  * traversal properties such as:
@@ -21,11 +51,13 @@
  *   - lastChild
  *   - childNodes
  *
- * Make sure to read the index.html file and study the locations of
- * the FLAG elements.
+ * Which you can read about here:
+ *
+ *    https://developer.mozilla.org/en-US/docs/Web/API/Node
+ *
  */
 (function() { // Keep this line.
 
   // Your code here.
 
-})(); // Keep this line.
+})(); // Keep this line too.
