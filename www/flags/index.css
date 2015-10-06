@@ -19,7 +19,16 @@ body{
 
 #bucket a,
 #bucket div,
-#bucket li{
+#bucket ul * {
   display:block;
   color:red;
+}
+
+#bucket li, #bucket li * {
+  color: green;
+}
+
+#bucket li p {
+  margin: 0;
+  padding: 0;
 }
