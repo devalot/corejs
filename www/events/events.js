@@ -10,6 +10,31 @@
 // all other counters.
 (function() {
 
-  // Your code here.
+  var body = document.querySelector("body");
+
+  var globalCounter = document.createElement("span"),
+      h1 = document.createElement("h1");
+
+  globalCounter.innerText = "Global Counter: ";
+
+  h1.appendChild(globalCounter);
+  h1.appendChild(document.createElement("span")).innerText = "0";
+  body.insertBefore(h1, body.firstChild);
+
+  var update = function(element) {
+    var span =
+        element.nextElementSibling;
+
+    span.innerText =
+      (parseInt(span.innerText) || 0) + 1;
+  };
+
+  body.addEventListener("click", function(e) {
+    if (e.target.innerText === "Click Me") {
+      update(e.target);
+      update(globalCounter);
+      e.preventDefault(); // Don't follow links!
+    }
+  });
 
 })();

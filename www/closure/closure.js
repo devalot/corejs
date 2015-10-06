@@ -14,7 +14,12 @@ ClosureExercise = function(test) {
   //
   test.confirm(function() {
 
-    // Your code here.
+    var temp = 0;
+
+    return {
+      setTemp: function(x) {temp = x;},
+      getTemp: function()  {return temp;},
+    };
 
   });
 

@@ -58,6 +58,37 @@
  */
 (function() { // Keep this line.
 
-  // Your code here.
+  // Cache the <UL> in the bucket:
+  var bucket = document.querySelector("#bucket ul");
+
+  // Function to move a node into the bucket:
+  var move = function(e) {
+    if (e.tagName === "LI") {
+      bucket.appendChild(e);
+    } else {
+      var li = document.createElement("li");
+      li.appendChild(e);
+      bucket.appendChild(li);
+    }
+  };
+
+  // FLAG #1:
+  var flag1 = document.querySelector(".main ul li.foo");
+  move(flag1);
+
+  // FLAG #2:
+  var flag2 = document.querySelector("#articles a span");
+  move(flag2);
+
+  // FLAG #3:
+  var flag3Parent = document.querySelector(".footer div");
+  var flag3 = flag3Parent.childNodes[1].childNodes[3].childNodes[1];
+  move(flag3);
+
+  // FLAG #4 and #5:
+  var flag4 = document.querySelector("#article-3 span");
+  var flag5 = flag4.parentNode;
+  move(flag4);
+  move(flag5);
 
 })(); // Keep this line too.

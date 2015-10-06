@@ -18,6 +18,58 @@
 // artist ID.)
 (function() {
 
-  // Your code here.
+  var button  = document.querySelector("button"),
+      list    = document.getElementById("artists"),
+      details = document.getElementById("details");
+
+  var resetList = function(artists) {
+    list.innerHTML = ""; // Clear the <UL>.
+
+    artists.forEach(function(artist) {
+      var li = document.createElement("li");
+      li.innerText = artist.name;
+      li.setAttribute("data-artist-id", artist.id);
+      list.appendChild(li);
+    });
+  };
+
+  button.addEventListener("click", function(e) {
+    var request = new XMLHttpRequest();
+
+    request.addEventListener("load", function() {
+      if (request.status >= 200 && request.status < 300) {
+        resetList(JSON.parse(request.responseText));
+      }
+    });
+
+    request.open("GET", "/api/artists");
+    request.send();
+  });
+
+  var resetDetails = function(artist) {
+    details.innerHTML = "";
+
+    for (var p in artist) {
+      var li = document.createElement("li");
+      li.innerText = p + ": " + artist[p];
+      details.appendChild(li);
+    }
+  };
+
+  list.addEventListener("click", function(e) {
+    var id = e.target.getAttribute("data-artist-id");
+    if (!id) return;
+
+    var request = new XMLHttpRequest();
+
+    request.addEventListener("load", function() {
+      if (request.status >= 200 && request.status < 300) {
+        resetDetails(JSON.parse(request.responseText));
+      }
+    });
+
+    request.open("GET", "/api/artists/" + id);
+    request.send();
+  });
 
 })();
