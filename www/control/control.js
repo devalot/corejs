@@ -9,6 +9,11 @@ ControlFlow = function(test) {
   // an `if' statement to achieve this.
   test.confirm(function(input) { // Write your code below this line.
 
+    if (input === 42)  {
+      return true;
+    } else {
+      return false;
+    }
 
   }); // End of the anonymous function.
 
@@ -22,6 +27,13 @@ ControlFlow = function(test) {
   // Use an `if' statement to achieve this.
   test.confirm(function(input) { // Write your code below this line.
 
+    if (input === 42) {
+      return true;
+    } else if (input === 43) {
+      return null;
+    } else {
+      return false;
+    }
 
   }); // End of the anonymous function.
 
@@ -31,6 +43,16 @@ ControlFlow = function(test) {
   // Repeat exercise 2, this time using a `switch' statement.
   test.confirm(function(input) { // Write your code below this line.
 
+    switch (input) {
+    case 42:
+      return true;
+
+    case 43:
+      return null;
+
+    default:
+      return false;
+    }
 
   }); // End of the anonymous function.
 
@@ -46,6 +68,10 @@ ControlFlow = function(test) {
   //
   test.confirm(function(counter) { // Write your code below this line.
 
+
+    for (var i=0; i<3; ++i) {
+      counter();
+    }
 
   }); // End of the anonymous function.
 
