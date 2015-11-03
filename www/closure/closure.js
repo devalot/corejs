@@ -13,9 +13,12 @@ ClosureExercise = function(test) {
   //            the setTemp function.
   //
   test.confirm(function() {
+    var temperature = 58;
 
-    // Your code here.
+    return {
+      setTemp: function(t) {temperature = t;},
+      getTemp: function()  {return temperature;},
+    };
 
   });
-
 };

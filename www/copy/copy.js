@@ -8,7 +8,13 @@
  *
  */
 copy = function(object) {
+  var dup = {}; // New, empty object.
 
-  // Your code here.
+  for (var p in object) {
+    if (object.hasOwnProperty(p)) {
+      dup[p] = object[p];
+    }
+  }
 
+  return dup;
 };
