@@ -1,24 +1,15 @@
-// This will become the prototype.
-var baseFruit = {
-  logColor: function() {
-    console.log(this.color);
-  },
-  logName: function() {
-    console.log(this.name);
-  }
-};
-
-// Factory function (hand-made constructor).
 // <<: factory
-var createFruit = function(name, color) {
-  var fruit = Object.create(baseFruit);
+var Message = function(sender, content) {
+  var m = Object.create(Message.prototype);
 
-  fruit.name  = name;
-  fruit.color = color;
+  m.sender  = sender;
+  m.content = content;
+  m.length  = content.length;
 
-  return fruit;
+  return m;
 };
 
-var apple = createFruit("apple", "red");
+Message.prototype = { /* ... */ };
+
+var message = Message("pjones@devalot.com", "Hello");
 // :>>
-apple.logColor();

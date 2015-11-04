@@ -10,12 +10,20 @@
 // ID of "artists").  Display the name of each artist inside the newly
 // created <li> elements.
 //
-// BONUS:
+// BONUS #1:
 //
 // Clicking one of the <li> elements should display all information
 // about the clicked artist in the <ul> with the ID of "details".
 // (Hint: make another HTTP request to /api/artists/N where N is the
 // artist ID.)
+//
+// BONUS #2:
+//
+// After displaying a list of artist details, also display a list of
+// album names.  A list of albums can be fetched using the following
+// URL:
+//     /api/artists/N/albums
+//
 (function() {
 
   // Your code here.
