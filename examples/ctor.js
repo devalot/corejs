@@ -1,25 +1,22 @@
 // <<: ctor
-var Message = function(plain, secret) {
-  this.getPlain = function() {
-    return plain;
-  };
-
-  this.getSecret = function() {
-    return secret;
-  };
+var Message = function(sender, content) {
+  this.sender  = sender;
+  this.content = content;
+  this.length  = content.length;
 };
 // :>>
 
+// <<: prototype
 Message.prototype = {
-  getBoth: function() {
-    var both = this.getPlain() + "/" + this.getSecret();
-    return both;
-  }
+  send: function() {
+    if (this.length !== 0) {
+      console.log(this.content);
+    }
+  },
 };
+// :>>
 
 // <<: new
-var m = new Message("HI", "BYE");
+var m = new Message("pjones@devalot.com", "Hello");
+m.send();
 // :>>
-
-console.log(m.getPlain());
-console.log(m.getBoth());
