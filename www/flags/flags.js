@@ -58,6 +58,71 @@
  */
 (function() { // Keep this line.
 
-  // Your code here.
+  var bucket = document.querySelector("#bucket ul");
+
+  var addToBucket = function(element) {
+    var li;
+
+    if (element.tagName === "LI") {
+      li = element;
+    } else {
+      li = document.createElement("li");
+      li.appendChild(element);
+    }
+
+    bucket.appendChild(li);
+  };
+
+  // Search the DOM tree and record where the flags are.
+  var walkAndMove = function(element) {
+    if (element.childNodes && element.childNodes.length > 0) {
+      for (var i=0; i<element.childNodes.length; ++i) {
+        walkAndMove(element.childNodes[i]);
+      }
+    }
+
+    if (element.nodeType === 3 &&
+        element.nodeValue.match(/flag\s#\d/i))
+    {
+        walkAndMove.toMove.push(element);
+    }
+  };
+
+  walkAndMove.toMove = [];
+  walkAndMove(document);
+
+  // Sort the flags and put them in the bucket.
+  walkAndMove.toMove.sort(function(a, b) {
+    var n = parseInt(a.nodeValue.match(/\d+/)),
+        m = parseInt(b.nodeValue.match(/\d+/));
+    return n - m;
+  }).forEach(function(e) {
+    addToBucket(e.parentNode);
+  });
+
+  // Find each flag manually:
+  //
+  // var flag1 = document.querySelector("div.main ul li.foo");
+  // addToBucket(flag1);
+  //
+  // var flag2 = document.querySelector("#articles article p span");
+  // addToBucket(flag2);
+  //
+  // var flag3Parent = document.querySelector("div.footer");
+  //
+  // var flag3 =
+  //     flag3Parent.
+  //     childNodes[1].
+  //     childNodes[1].
+  //     childNodes[3].
+  //     childNodes[1];
+  //
+  // addToBucket(flag3);
+  //
+  // var flag4 = document.querySelector("#article-3 p span");
+  // var flag5 = flag4.parentNode;
+  //
+  // addToBucket(flag4);
+  // addToBucket(flag5);
 
 })(); // Keep this line too.
