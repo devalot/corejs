@@ -19,6 +19,23 @@
  */
 processString = function(input) {
 
-  // Your code here.
+  var today = (new Date()).toDateString(),
+      count = 0;
 
+  var result = input.replace(/\b\w+\b/g, function(word) {
+    count += (word.match(/x/ig) || []).length;
+
+    switch (word.toLowerCase()) {
+    case "today":
+      return today;
+
+    case "pi":
+      return "3.14";
+
+    default:
+      return word;
+    }
+  });
+
+  return result + " " + count;
 };
