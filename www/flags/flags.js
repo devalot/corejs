@@ -58,6 +58,48 @@
  */
 (function() { // Keep this line.
 
-  // Your code here.
+  var bucket = document.getElementById("bucket");
+  var list   = bucket.querySelector("ul");
+
+  // Wrap an element in a <li> and add it to the bucket.
+  var wrapAndAdd = function(element) {
+    if (element.tagName !== "LI") {
+      var temp = document.createElement("li");
+      temp.appendChild(element);
+      element = temp;
+    }
+
+    list.appendChild(element);
+  };
+
+  var walk = function(element) {
+    if (element.nodeType === 1) {
+      Array.prototype.slice.call(element.childNodes).
+        forEach(walk);
+    } else if (element.nodeType === 3 &&
+               element.textContent.match(/^FLAG/))
+    {
+      wrapAndAdd(element.parentNode);
+    }
+  };
+
+  walk(document.querySelector(".main"));
+
+  // var flag1 = document.querySelector(".main li.foo");
+  // wrapAndAdd(flag1);
+  //
+  // var flag2 = document.querySelector(".new a span");
+  // wrapAndAdd(flag2);
+  //
+  // // Pure CSS: .footer div div :nth-child(2) :nth-child(1)
+  // var flag3 = document.querySelector(".footer div").
+  //     childNodes[1].childNodes[3].childNodes[1];
+  // wrapAndAdd(flag3);
+  //
+  // var flag4 = document.querySelector("#article-3 span");
+  // var flag5 = flag4.parentNode;
+  //
+  // wrapAndAdd(flag4);
+  // wrapAndAdd(flag5);
 
 })(); // Keep this line too.

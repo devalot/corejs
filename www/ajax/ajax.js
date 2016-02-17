@@ -26,6 +26,75 @@
 //
 (function() {
 
-  // Your code here.
+  var TableHelper = function(id, rowFunc) {
+    this.element = document.getElementById(id);
+    this.rowFunc = rowFunc;
+  };
 
+  TableHelper.prototype.refresh =
+    function(array) {
+      var self = this;
+      self.element.innerHTML = ""; // Clear the table of all rows.
+
+      array.forEach(function(item) {
+        self.element.appendChild(self.rowFunc(item));
+      });
+    };
+
+  var artistsTable =
+      new TableHelper("artists", function(artist) {
+        var tr = document.createElement("tr");
+        tr.setAttribute("data-artist-id", artist.id);
+
+        var td = function() {
+          return tr.appendChild(document.createElement("td"));
+        };
+
+        td().textContent = artist.name;
+        td().textContent = artist.formation_year;
+        td().textContent = artist.website;
+
+        return tr;
+      });
+
+  var loadButton = document.querySelector("button");
+  loadButton.addEventListener("click", function() {
+    var xhr = new XMLHttpRequest();
+
+    xhr.addEventListener("load", function() {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        artistsTable.refresh(JSON.parse(xhr.responseText));
+      }
+    });
+
+    xhr.open("GET", "/api/artists");
+    xhr.send();
+  });
+
+  var albumsTable =
+      new TableHelper("details", function(album) {
+        var tr = document.createElement("tr");
+
+        tr.appendChild(document.createElement("td")).textContent = album.name;
+        // other cells go here.
+
+        return tr;
+      });
+
+  artistsTable.element.addEventListener("click", function(e) {
+    var row = e.target;
+    while (row && row.tagName != "TR") row = row.parentNode;
+
+    var id = row.getAttribute("data-artist-id");
+    var xhr = new XMLHttpRequest();
+
+    xhr.addEventListener("load", function() {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        albumsTable.refresh(JSON.parse(xhr.responseText));
+      }
+    });
+
+    xhr.open("GET", "/api/artists/" + id + "/albums");
+    xhr.send();
+  });
 })();
