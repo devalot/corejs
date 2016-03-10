@@ -7,6 +7,7 @@ Primitives = function(test) {
   // You'll be asked to create certain values in the exercises below.
   // After creating each value you need to call the test.confirm()
   // function.  For example, if asked to add 1 and 2:
+  console.log("Exercise 1");
   test.confirm(1 + 2);
 
   /****************************************************************************/

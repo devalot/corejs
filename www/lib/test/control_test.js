@@ -40,6 +40,26 @@ $(function() {
       return true;
     },
 
+    /**************************************************************************/
+    // (BONUS) EXERCISE 5:
+    function(value, test) {
+      test.assertInstanceOf(value, Function);
+
+      var result = null;
+          sets   = [
+            {numbers: [1, 2, 3, 4], sum: 10},
+            {numbers: [8, 2, 6, 3], sum: 19},
+          ];
+
+      sets.forEach(function(s) {
+        result = value(s.numbers);
+        if (result === undefined) return null; // Bonus not solved.
+        test.assert(result === s.sum, "the sum of " + s.numbers + " should be: " + s.sum);
+      });
+
+      return result === undefined ? null : true;
+    },
+
   ];
 
   new Confirm(function(confirm) {

@@ -20,7 +20,7 @@ $(function() {
   ];
 
   new Confirm(function(confirm) {
-    ClosureExercise(confirm);
+    confirm.confirm(ClosureExercise);
     confirm.assertValues(checks);
   });
 });

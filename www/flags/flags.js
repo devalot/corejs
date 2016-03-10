@@ -55,6 +55,13 @@
  *
  *    https://developer.mozilla.org/en-US/docs/Web/API/Node
  *
+ *
+ * BONUS:
+ *
+ * Rewrite your solution.  This time instead of selecting each flag
+ * individually, write a function that recursively walks the DOM tree
+ * and moves the flags as they are found.  Don't forget to sort the
+ * flags so they are in the correct order in the bucket.
  */
 (function() { // Keep this line.
 

@@ -6,8 +6,11 @@
 // that clicking any "Click Me" element will increment its paired
 // counter.
 //
-// BONUS: Create a new element on the page that displays the sum of
+// BONUS 1: Create a new element on the page that displays the sum of
 // all other counters.
+//
+// BONUS 2: When the global counter goes above 10 add the "goal" class
+// to it.  Doing so should make it turn red.
 (function() {
 
   // Your code here.

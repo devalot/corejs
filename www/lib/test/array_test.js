@@ -36,6 +36,23 @@ $(function() {
     // EXERCISE 3: (BONUS)
     function(value, test) {
       test.assertInstanceOf(value, Function);
+      users = value();
+
+      if (users === undefined) {
+        // Bonus not solved.
+        return null;
+      }
+
+      test.assertInstanceOf(users, Array);
+      test.assert(users.length === 1, "array should contain 1 element");
+      test.assert(users[0] === 1, "wrong answer");
+
+      return true;
+    },
+
+    // EXERCISE 4: (BONUS)
+    function(value, test) {
+      test.assertInstanceOf(value, Function);
 
       var users = value();
 

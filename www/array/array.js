@@ -37,7 +37,20 @@ ArrayExercise = function(test) {
   });
 
   /****************************************************************************/
-  // BONUS EXERCISE:
+  // (BONUS) EXERCISE 3:
+  //
+  // The anonymous function below should return an array of strings.
+  // The strings should be all of the IDs from the TEST DATA above
+  // where the user is over the age of 20 and younger than 40.
+  test.confirm(function() {
+
+    // Your code here.
+
+  });
+
+
+  /****************************************************************************/
+  // (BONUS) EXERCISE 4:
   //
   // The anonymous function below should return the `users' array from
   // above (TEST DATA) in reverse order.  Do not use the built-in

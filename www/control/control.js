@@ -50,6 +50,15 @@ ControlFlow = function(test) {
   }); // End of the anonymous function.
 
 
+  /****************************************************************************/
+  // (BONUS) EXERCISE 5:
+  //
+  // The anonymous function below will be called with an array of
+  // numbers.  Return the sum of those numbers.
+  test.confirm(function(numbers) {
+
+
+  });
 
   // Don't change anything below this line.
 };
