@@ -26,6 +26,26 @@
 //
 (function() {
 
-  // Your code here.
+  var button      = document.querySelector("button");
+  var artistsView = document.getElementById("artists");
 
+  button.addEventListener("click", function(e) {
+    var request = new XMLHttpRequest();
+
+    request.addEventListener("load", function() {
+      if (request.status >= 200 && request.status < 300) {
+        var artists = JSON.parse(request.responseText);
+        artistsView.innerHTML = ""; // Clear the view.
+
+        artists.forEach(function(artist) {
+          var li = document.createElement("li");
+          li.textContent = artist.name;
+          artistsView.appendChild(li);
+        });
+      }
+    });
+
+    request.open("GET", "/api/artists");
+    request.send();
+  });
 })();

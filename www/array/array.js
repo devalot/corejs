@@ -20,7 +20,9 @@ ArrayExercise = function(test) {
   // the TEST DATA above that only includes users under the age of 18.
   test.confirm(function() {
 
-    // Your code here.
+    return users.filter(function(user) {
+      return user.age < 18;
+    });
 
   });
 
@@ -31,9 +33,9 @@ ArrayExercise = function(test) {
   // The strings should be all of the usernames from the TEST DATA
   // above, in the same order.
   test.confirm(function() {
-
-    // Your code here.
-
+    return users.map(function(user) {
+      return user.username;
+    });
   });
 
   /****************************************************************************/
@@ -44,7 +46,11 @@ ArrayExercise = function(test) {
   // where the user is over the age of 20 and younger than 40.
   test.confirm(function() {
 
-    // Your code here.
+    return users.filter(function(u) {
+      return u.age > 20 && u.age < 40;
+    }).map(function(u) {
+      return u.id;
+    });
 
   });
 
@@ -57,7 +63,12 @@ ArrayExercise = function(test) {
   // reverse function.
   test.confirm(function() {
 
-    // Your code here.
+    var result = [];
 
+    users.forEach(function(u) {
+      result.unshift(u);
+    });
+
+    return result;
   });
 };

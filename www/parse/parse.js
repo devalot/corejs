@@ -6,6 +6,15 @@
 // of arguments that could successfully be parsed as integers.
 Parse = function() {
 
-  // Your code here...
+  var result = 0;
 
+  for (var i=0; i < arguments.length; ++i) {
+    var parsed = parseInt(arguments[i]);
+
+    if (isFinite(parsed)) {
+      result += 1;
+    }
+  }
+
+  return result;
 };
