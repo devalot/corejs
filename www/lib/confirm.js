@@ -21,11 +21,13 @@ Confirm.prototype = {
 
   assertInstanceOf: function(value, type) {
     this.assert(value !== undefined &&
-                value !== null, "expected instance of " + type.toString() +
+                value !== null, "expected instance of " + type.name +
                 " but got undefined or null instead");
 
-    var message = "expected instance of " + type.toString() + " " +
-        "but got " + value.constructor.toString() + " instead";
+    var message = "expected instance of " + type.name + " " +
+                  "but got '" + value + "' (" +
+                  value.constructor.name + ") instead";
+
     this.assert(value.constructor == type, message);
   },
 
@@ -42,6 +44,19 @@ Confirm.prototype = {
       this.record(false, message);
       this.abort(message);
     }
+  },
+
+  // Returns a function that can be used with assertValues.
+  assertFunction: function(f, args, callback) {
+    this.confirm(f);
+
+    return function() {
+      this.assertInstanceOf(f, Function);
+
+      var result = f.apply(null, args || []);
+      if (result === undefined) return null;
+      return callback.call(this, result, this);
+    }.bind(this);
   },
 
   refute: function(value, message) {
