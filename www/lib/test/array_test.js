@@ -45,7 +45,7 @@ $(function() {
 
       test.assertInstanceOf(users, Array);
       test.assert(users.length === 1, "array should contain 1 element");
-      test.assert(users[0] === 1, "wrong answer");
+      test.assertEqual("1", users[0]);
 
       return true;
     },

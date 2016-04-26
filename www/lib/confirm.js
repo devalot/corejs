@@ -33,7 +33,12 @@ Confirm.prototype = {
     if (actual === undefined) actual = "undefined";
 
     if (expected !== actual) {
-      var message = "expected '" + expected + "' but got '" + actual + "' instead";
+      var type_e  = typeof expected,
+          type_a  = typeof actual,
+          message = "expected '" + expected + "' (" + type_e +
+                    ") but got '" + actual + "' (" + type_a +
+                    ") instead";
+
       this.record(false, message);
       this.abort(message);
     }
