@@ -12,15 +12,11 @@ function Exercise1() {
 /******************************************************************************/
 // EXERCISE 2: Create (and return) a string with at least 5 characters
 function Exercise2() {
-
-  // Your code here.
-
+  return "Hello World";
 }
 
 /******************************************************************************/
 // EXERCISE 3: Create (and return) an array that has at least 5 elements
 function Exercise3() {
-
-  // Your code here.
-
+  return [1, 2, 3, "A", false];
 }
