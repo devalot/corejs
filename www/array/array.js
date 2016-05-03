@@ -18,7 +18,9 @@ var users = [
 // DATA above that only includes users under the age of 18.
 function Exercise1() {
 
-  // Your code here.
+  return users.filter(function(u) {
+    return u.age < 18;
+  });
 
 }
 
@@ -30,7 +32,9 @@ function Exercise1() {
 // same order.
 function Exercise2() {
 
-  // Your code here.
+  return users.map(function(u) {
+    return u.username;
+  });
 
 }
 
@@ -43,7 +47,10 @@ function Exercise2() {
 // over the age of 20 and younger than 40.
 function Exercise3() {
 
-  // Your code here.
+  return users.reduce(function(a, u) {
+    if (u.age > 20 && u.age < 40) a.push(u.id.toString());
+    return a;
+  }, []);
 
 }
 
@@ -54,6 +61,9 @@ function Exercise3() {
 // DATA) in reverse order.  Do not use the built-in reverse function.
 function Exercise4() {
 
-  // Your code here.
+  return users.reduce(function(a, u) {
+    a.unshift(u);
+    return a;
+  }, []);
 
 }
