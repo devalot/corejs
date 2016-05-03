@@ -10,7 +10,7 @@
 //   getTemp: A function that returns the last temperature set by
 //            the setTemp function.
 //
-ClosureExercise = function(test) {
+ClosureExercise = function() {
 
   // Your code here.
 
