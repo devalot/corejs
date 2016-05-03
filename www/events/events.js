@@ -13,6 +13,52 @@
 // to it.  Doing so should make it turn red.
 (function() {
 
-  // Your code here.
+  var Counters = function() {
+    var global = document.createElement("h1");
+    global.appendChild(document.createElement("span")).textContent = "Global: ";
+
+    this.global = global.appendChild(document.createElement("span"));
+    this.global.textContent = "0";
+
+    var body = document.querySelector("body");
+    body.insertBefore(global, body.firstChild);
+  };
+
+  Counters.prototype = {
+    inc: function(node) {
+      var n = (parseInt(node.textContent) || 0) + 1;
+      node.textContent = n.toString();
+      return n;
+    },
+
+    incGlobal: function() {
+      var count = this.inc(this.global);
+      if (count > 10) this.global.classList.add("goal");
+    },
+
+    findCounter: function(element) {
+      do {
+        element = element.nextSibling;
+      } while (element && element.tagName !== "SPAN");
+      return element;
+    },
+
+    click: function(event) {
+      var counter = this.findCounter(event.target);
+      if (!counter) return;
+      this.inc(counter);
+      this.incGlobal();
+      event.preventDefault();
+    },
+  };
+
+  var counters = new Counters();
+  var body = document.querySelector("body");
+
+  // body.addEventListener("click", counters.click.bind(counters));
+
+  body.addEventListener("click", function(event) {
+    counters.click(event);
+  });
 
 })();

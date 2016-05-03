@@ -65,6 +65,63 @@
  */
 (function() { // Keep this line.
 
-  // Your code here.
+  var Bucket = function() {
+    this.bucket = document.querySelector("#bucket ul");
+  };
+
+  Bucket.prototype.wrap = function(element) {
+    if (element.tagName === "LI") return element;
+    var wrapper = document.createElement("li");
+    wrapper.appendChild(element);
+    return wrapper;
+  };
+
+  Bucket.prototype.insert = function(element) {
+    if (element === null) throw "you have a busted selector";
+    this.bucket.appendChild(this.wrap(element));
+  };
+
+  Bucket.prototype.findManually = function() {
+    var flag1 = document.querySelector(".main li.foo");
+    this.insert(flag1);
+
+    var flag2 = document.querySelector("#articles .new a span");
+    this.insert(flag2);
+
+    var flag3 = document.querySelector(".footer div div");
+    this.insert(flag3.childNodes[3].childNodes[1]);
+
+    var flag4 = document.querySelector("#article-3 p span");
+    var flag5 = flag4.parentNode;
+    this.insert(flag4);
+    this.insert(flag5);
+  };
+
+  Bucket.prototype.findAutomatically = function() {
+    var self    = this,
+        matches = [];
+
+    var find = function(node) {
+      if (node.nodeType === 3 && node.nodeValue.match(/FLAG/)) {
+        if (!node.nodeValue.match(/NOT/)) matches.push(node);
+      } else if (node.nodeType === 1) {
+        for (var i=0; i!=node.childNodes.length; ++i) {
+          if (node.childNodes[i]) find(node.childNodes[i]);
+        }
+      }
+    };
+
+    find(document.getElementById("container"));
+
+    matches.sort(function(a, b) {
+      return a.nodeValue > b.nodeValue;
+    }).forEach(function(node) {
+      self.insert(node.parentNode);
+    });
+  };
+
+  var bucket = new Bucket();
+  // bucket.findAutomatically();
+  // bucket.findManually();
 
 })(); // Keep this line too.
