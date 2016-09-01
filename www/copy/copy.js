@@ -9,6 +9,13 @@
  */
 copy = function(object) {
 
-  // Your code here.
+  var duplicate = {};
 
+  for (var p in object) {
+    if (object.hasOwnProperty(p)) {
+      duplicate[p] = object[p];
+    }
+  }
+
+  return duplicate;
 };
