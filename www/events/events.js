@@ -12,7 +12,46 @@
 // BONUS 2: When the global counter goes above 10 add the "goal" class
 // to it.  Doing so should make it turn red.
 (function() {
+  var Counter = function(element) {
+    this.element = element;
+    this.counter = this.element.nextElementSibling;
+  };
 
-  // Your code here.
+  Counter.prototype.value = function() {
+    // Nasty!!
+    // return this.counter.textContent | 0;
+    return parseInt(this.counter.textContent) || 0;
+  };
 
+  Counter.prototype.inc = function() {
+    this.counter.textContent =
+      (this.value() + 1).toString();
+  };
+
+  var body = document.querySelector("body");
+
+  var bonusElement = document.createElement("h1");
+  var bonusLabel   = document.createElement("span");
+  var bonusNumber  = document.createElement("span");
+
+  bonusLabel.textContent = "All Clicks: ";
+  bonusNumber.textContent = "0";
+  bonusElement.appendChild(bonusLabel);
+  bonusElement.appendChild(bonusNumber);
+  body.insertBefore(bonusElement, body.firstChild);
+  bonus = new Counter(bonusLabel);
+
+  body.addEventListener("click", function(event) {
+    if (event.target.textContent !== "Click Me") return;
+
+    var counter = new Counter(event.target);
+    counter.inc();
+    bonus.inc();
+
+    if (bonus.value() > 10) {
+      bonus.counter.classList.add("goal");
+    }
+
+    event.preventDefault();
+  });
 })();

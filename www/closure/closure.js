@@ -11,10 +11,17 @@
 //            the setTemp function.
 //
 ClosureExercise = function() {
-  var temp = 42;
+  var temp;
 
  return {
-    setTemp: function(x) { temp = x;    },
-    getTemp: function()  { return temp; },
+   setTemp: function(x) {
+     if (x > 0 && x < 100) {
+       temp = x;
+     }
+   },
+
+   getTemp: function() {
+     return temp || 100;
+   },
  };
 };

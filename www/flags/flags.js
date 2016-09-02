@@ -64,7 +64,41 @@
  * flags so they are in the correct order in the bucket.
  */
 (function() { // Keep this line.
+  var Bucket = function(selector) {
+    this.element = document.querySelector(selector);
+  };
 
-  // Your code here.
+  // Wrap a node in a <LI> if necessary.
+  Bucket.prototype.wrap = function(node) {
+    if (node.tagName === "LI") return node;
+    var wrapper = document.createElement("LI");
+    wrapper.appendChild(node);
+    return wrapper;
+  };
 
+  // Insert the given node into the bucket.
+  Bucket.prototype.insert = function(node) {
+    var wrapped = this.wrap(node);
+    this.element.appendChild(wrapped);
+  };
+
+  var bucket = new Bucket("#bucket ul");
+
+  var flag1 = document.querySelector("ul li.foo");
+  bucket.insert(flag1);
+
+  var flag2 = document.getElementById("articles");
+  bucket.insert(flag2.querySelector("span"));
+
+  var footer = document.querySelector(".footer");
+  var flag3 = footer.children[0].children[0].
+                children[1].children[0];
+
+  // OR: "#articles > div > div > div > div:nth-child(2) > div:nth-child(1)"
+  bucket.insert(flag3);
+
+  var flag4 = document.querySelector("#article-3 span");
+  var flag5 = flag4.parentNode;
+  bucket.insert(flag4);
+  bucket.insert(flag5);
 })(); // Keep this line too.
