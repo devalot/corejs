@@ -5,7 +5,11 @@
 // varying number of arguments.  The function should return the number
 // of arguments that could successfully be parsed as integers.
 Parse = function() {
+  var count = 0;
 
-  // Your code here...
+  for (var i=0; i<arguments.length; ++i) {
+    if (isFinite(parseInt(arguments[i]))) ++count;
+  }
 
+  return count;
 };
