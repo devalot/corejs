@@ -25,7 +25,64 @@
 //     /api/artists/N/albums
 //
 (function() {
+  var View = function(document, element, render) {
+    this.document = document;
+    this.element  = element;
+    this.render   = render;
+  };
 
-  // Your code here.
+  View.prototype.set = function(records) {
+    var self = this;
+    this.element.innerHTML = "";
 
+    records.forEach(function(record) {
+      var li = self.document.createElement("LI");
+      li.textContent = self.render(record);
+      li.setAttribute("data-record-id", record.id);
+      self.element.appendChild(li);
+    });
+  };
+
+  var button = document.querySelector("button");
+  var artists = document.getElementById("artists");
+
+  var artistView = new View(document, artists, function(artist) {
+    return artist.name + " (" + artist.formation_year + ")";
+  });
+
+  button.addEventListener("click", function() {
+    var request = new XMLHttpRequest();
+
+    request.addEventListener("load", function() {
+      if (request.status >= 200 && request.status < 300) {
+        artistView.set(JSON.parse(request.responseText));
+      }
+    });
+
+    request.open("GET", "/api/artists");
+    request.send();
+  });
+
+  var details = document.getElementById("details");
+  var detailsView = new View(document, details, function(album) {
+    return album.name;
+  });
+
+  artistView.element.
+    addEventListener("click", function(e) {
+      var id = event.target.
+          getAttribute("data-record-id");
+
+      if (!id) return;
+
+      var request = new XMLHttpRequest();
+
+      request.addEventListener("load", function() {
+        if (request.status < 200 || request.status >= 300) return;
+        detailsView.set(JSON.parse(request.responseText));
+      });
+
+      request.open("GET", "/api/artists/" + id + "/albums");
+      request.send();
+    });
 })();
