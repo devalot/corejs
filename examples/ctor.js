@@ -2,17 +2,14 @@
 var Message = function(sender, content) {
   this.sender  = sender;
   this.content = content;
-  this.length  = content.length;
 };
 // :>>
 
 // <<: prototype
-Message.prototype = {
-  send: function() {
-    if (this.length !== 0) {
-      console.log(this.content);
-    }
-  },
+Message.prototype.send = function() {
+  if (this.content.length !== 0) {
+    console.log(this.sender, this.content);
+  }
 };
 // :>>
 
