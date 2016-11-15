@@ -15,5 +15,6 @@ Message.prototype.send = function() {
 
 // <<: new
 var m = new Message("pjones@devalot.com", "Hello");
-m.send();
+m.send(); // calls `Message.prototype.send'
+          // with `this' set to `m'
 // :>>
