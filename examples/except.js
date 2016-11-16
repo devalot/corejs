@@ -27,7 +27,8 @@ var beSafe = function() {
   catch (e) {
     if (e instanceof TypeError) {
 
-      // If you're here then the error is a TypeError.
+      // If you're here then the error
+      // is a TypeError.
 
     } else {
       throw e; // Re-throw the exception.
