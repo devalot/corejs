@@ -17,9 +17,12 @@ var users = [
 // The function below should return an array of users from the TEST
 // DATA above that only includes users under the age of 18.
 function Exercise1() {
+  return users.filter(function(user) {
+    return user.age < 18;
+  });
 
-  // Your code here.
-
+  // Using ES6:
+  return users.filter(user => user.age < 18);
 }
 
 /****************************************************************************/
@@ -29,9 +32,12 @@ function Exercise1() {
 // should be all of the usernames from the TEST DATA above, in the
 // same order.
 function Exercise2() {
+  return users.map(function(user) {
+    return user.username;
+  });
 
-  // Your code here.
-
+  // Using ES6:
+  return users.map(user => user.username);
 }
 
 /****************************************************************************/
@@ -42,9 +48,12 @@ function Exercise2() {
 // `toString()` method) from the TEST DATA above where the user is
 // over the age of 20 and younger than 40.
 function Exercise3() {
-
-  // Your code here.
-
+  // A solution using reduce might be a little bit faster here.
+  return users.filter(function(user) {
+    return user.age > 20 && user.age < 40;
+  }).map(function(user) {
+    return user.id.toString();
+  });
 }
 
 /****************************************************************************/
@@ -53,7 +62,9 @@ function Exercise3() {
 // The function below should return the `users' array from above (TEST
 // DATA) in reverse order.  Do not use the built-in reverse function.
 function Exercise4() {
-
-  // Your code here.
-
+  // Cheat!
+  return users.reduce(function(acc, user) {
+    acc.unshift(user);
+    return acc;
+  }, []);
 }

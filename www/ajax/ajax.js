@@ -26,6 +26,69 @@
 //
 (function() {
 
-  // Your code here.
+var View = function(document, selector) {
+  this.document = document;
+  this.element  = document.querySelector(selector);
+};
+
+View.prototype.update = function(records) {
+  var self = this;
+
+  self.element.innerHTML = "";
+
+  records.forEach(function(record) {
+    self.insert(record);
+  });
+};
+
+View.prototype.insert = function(record) {
+  var li = this.document.createElement("li");
+  li.textContent = record.content;
+  li.setAttribute("data-id", record.id);
+  this.element.appendChild(li);
+};
+
+var button = document.querySelector("button");
+var view = new View(document, "#artists");
+var altview = new View(document, "#details");
+
+button.addEventListener("click", function(event) {
+  var request = new XMLHttpRequest();
+
+  request.addEventListener("load", function() {
+    if (request.status < 200 || request.status > 299) return;
+    var artists = JSON.parse(request.responseText);
+
+    view.update(artists.map(function(artist) {
+      return {
+        content: artist.name,
+        id:      artist.id,
+      };
+    }));
+  });
+
+  request.open("GET", "/api/artists");
+  request.send();
+});
+
+view.element.addEventListener("click", function(event) {
+  var id = event.target.getAttribute("data-id");
+  if (!id) return;
+
+  var request = new XMLHttpRequest();
+
+  request.addEventListener("load", function() {
+    if (request.status < 200 || request.status > 299) return;
+    var artist = JSON.parse(request.responseText);
+    altview.update([
+      {content: "Name: " + artist.name},
+      {content: "Formation Year: " + artist.formation_year},
+      {content: "URL: " + artist.website},
+    ]);
+  });
+
+  request.open("GET", "/api/artists/" + id);
+  request.send();
+});
 
 })();

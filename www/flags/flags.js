@@ -65,6 +65,40 @@
  */
 (function() { // Keep this line.
 
-  // Your code here.
+  var Bucket = function(document, selector) {
+    this.document = document;
+    this.element = document.querySelector(selector);
+  };
 
+  // Add a flag to the bucket.
+  Bucket.prototype.insert = function(flag) {
+    this.element.appendChild(this.wrap(flag));
+  };
+
+  // Find a node and then insert it into the bucket.
+  Bucket.prototype.selectAndInsert = function(selector) {
+    this.insert(this.document.querySelector(selector));
+  };
+
+  // Wrap a flag in an <li>.
+  Bucket.prototype.wrap = function(flag) {
+    if (flag.tagName === "LI") return flag;
+    var li = this.document.createElement("li");
+    li.appendChild(flag);
+    return li;
+  };
+
+  var bucket = new Bucket(document, "#bucket ul");
+  bucket.selectAndInsert(".main li.foo");         // FLAG #1
+  bucket.selectAndInsert("article.new p a span"); // FLAG #2
+
+  // FLAG #3
+  var flag3Parent = document.querySelector("div.footer div div");
+  bucket.insert(flag3Parent.children[1].firstElementChild);
+
+  // FLAG #4 and #5
+  var flag4 = document.querySelector("#article-3 p span");
+  var flag5 = flag4.parentNode;
+  bucket.insert(flag4);
+  bucket.insert(flag5);
 })(); // Keep this line too.
