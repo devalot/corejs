@@ -15,7 +15,7 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "jshint": "2.8.0",
-    "mockapie": "git://pmade.com/mockapie"
+    "mockapie": "https://github.com/pjones/mockapie.git"
   },
   "repository": {
     "type" : "git",
