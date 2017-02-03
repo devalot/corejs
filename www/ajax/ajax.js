@@ -26,6 +26,50 @@
 //
 (function() {
 
-  // Your code here.
+  var Render = function(document, viewport) {
+    this.document = document;
+    this.element  = viewport;
+  };
 
+  Render.prototype.update = function(items) {
+    var self = this;
+    self.element.innerHTML = "";
+
+    items.forEach(function(item) {
+      var li = self.document.createElement("LI");
+      li.textContent = item.name;
+      li.setAttribute("data-item-id", item.id);
+      self.element.appendChild(li);
+    });
+  };
+
+  // Invoke `callback' when an item is clicked.
+  Render.prototype.onClick = function(callback) {
+    this.element.addEventListener("click", function(e) {
+      var id = e.target.getAttribute("data-item-id");
+      if (id) callback(id);
+    });
+  };
+
+  var button  = document.querySelector("button");
+  var artists = document.getElementById("artists");
+  var render  = new Render(document, artists);
+
+  button.addEventListener("click", function(event) {
+    var request = new XMLHttpRequest();
+
+    request.addEventListener("load", function() {
+      if (request.status >= 200 && request.status < 300) {
+        render.update(JSON.parse(request.responseText));
+      }
+    });
+
+    request.open("GET", "/api/artists");
+    request.send();
+  });
+
+  render.onClick(function(id) {
+    // This is where you can do Bonus 1.
+    console.log("artist with ID " + id + " was clicked");
+  });
 })();

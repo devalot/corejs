@@ -65,6 +65,39 @@
  */
 (function() { // Keep this line.
 
-  // Your code here.
+  var Bucket = function(document, selector) {
+    this.document = document;
+    this.element  = document.querySelector(selector);
+  };
 
+  // Insert the given node into the bucket.
+  Bucket.prototype.insert = function(node) {
+    this.element.appendChild(this.wrap(node));
+  };
+
+  // Ensure the given node is wrapped in an <LI>.
+  Bucket.prototype.wrap = function(node) {
+    if (node.tagName === "LI") return node;
+    var li = this.document.createElement("LI");
+    li.appendChild(node);
+    return li;
+  };
+
+  // Insert a node given a CSS selector.
+  Bucket.prototype.insertFromSelector = function(selector) {
+    this.insert(this.document.querySelector(selector));
+  };
+
+  var bucket = new Bucket(document, "#bucket ul");
+
+  bucket.insertFromSelector(".main li.foo");     // Flag #1
+  bucket.insertFromSelector("#articles a span"); // Flag #2
+
+  var f3Ancestor = document.querySelector(".footer div div");
+  bucket.insert(f3Ancestor.lastElementChild.firstElementChild);
+
+  var f4 = document.querySelector("#article-3 p span");
+  var f5 = f4.parentNode;
+  bucket.insert(f4);
+  bucket.insert(f5);
 })(); // Keep this line too.
