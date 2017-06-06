@@ -26,6 +26,42 @@
 //
 (function() {
 
-  // Your code here.
+var View = function(document, selector) {
+  this.document = document;
+  this.element  = document.querySelector(selector);
+};
+
+View.prototype.render = function(records, properties) {
+  var self = this;
+
+  self.element.innerHTML = "";
+
+  records.forEach(function(record) {
+    properties.forEach(function(property) {
+      self.renderOne(record[property]);
+    });
+  });
+};
+
+View.prototype.renderOne = function(value) {
+  var li = this.document.createElement("li");
+  li.textContent = value;
+  this.element.appendChild(li);
+};
+
+var button = document.querySelector("button");
+var view   = new View(document, "#artists");
+
+button.addEventListener("click", function() {
+  var request = new XMLHttpRequest();
+
+  request.addEventListener("load", function() {
+    var records = JSON.parse(request.responseText);
+    view.render(records, ['name']);
+  });
+
+  request.open("GET", "/api/artists");
+  request.send();
+});
 
 })();

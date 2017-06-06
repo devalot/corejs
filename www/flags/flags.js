@@ -65,6 +65,71 @@
  */
 (function() { // Keep this line.
 
-  // Your code here.
+  var Bucket = function(document, selector) {
+    this.document = document;
+    this.element  = document.querySelector(selector);
+  };
 
+  // Insert a node into the bucket.
+  Bucket.prototype.insert = function(node) {
+    this.element.appendChild(this.wrap(node));
+  };
+
+  // Ensure a node is wrapped in an <LI>.
+  Bucket.prototype.wrap = function(node) {
+    if (node.tagName === "LI") return node;
+    var li = this.document.createElement("li");
+    li.appendChild(node);
+    return li;
+  };
+
+  // Sort the bucket.
+  Bucket.prototype.sort = function() {
+    var flags = Array.prototype.slice.call(this.element.children);
+    var getNum = function(e) {return parseInt(e.textContent.match(/#(\d+)/)[1]);};
+
+    var sorted = flags.sort(function(a, b) {
+      return getNum(a) - getNum(b);
+    });
+
+    for (var i=0; i<sorted.length; ++i) {
+      this.element.appendChild(sorted[i]);
+    }
+  };
+
+  // Find all flags by traversing the tree.
+  Bucket.prototype.bruteForce = function() {
+    var flags = [];
+
+    var finder = function(node) {
+      if (node.nodeType === 3 && node.nodeValue.match(/FLAG #/)) {
+        flags.push(node.parentNode);
+      } else if (node.nodeType === 1) {
+        for (var i=0; i<node.childNodes.length; ++i) {
+          finder(node.childNodes[i]);
+        }
+      }
+    };
+
+    finder(document.body);
+    for (var i=0; i<flags.length; i++) this.insert(flags[i]);
+    this.sort();
+  };
+
+  var bucket = new Bucket(document, "#bucket ul");
+  bucket.bruteForce();
+
+  // var flag1 = document.querySelector(".main ul li.foo");
+  // bucket.insert(flag1);
+  //
+  // var flag2 = document.querySelector(".new p span");
+  // bucket.insert(flag2);
+  //
+  // var flag3 = document.querySelector(".footer div div");
+  // bucket.insert(flag3.children[1].children[0]);
+  //
+  // var flag4 = document.querySelector("#article-3 span");
+  // var flag5 = flag4.parentNode;
+  // bucket.insert(flag4);
+  // bucket.insert(flag5);
 })(); // Keep this line too.

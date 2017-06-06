@@ -11,7 +11,21 @@
 //            the setTemp function.
 //
 ClosureExercise = function() {
+  var temp = 100;
 
-  // Your code here.
+  var get = function() {
+    return temp;
+  };
 
+  var set = function(newTemp) {
+    // Protect `temp':
+    if (newTemp > 0) {
+      temp = newTemp;
+    }
+  };
+
+  return {
+    getTemp: get,
+    setTemp: set,
+  };
 };

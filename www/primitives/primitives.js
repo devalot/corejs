@@ -13,7 +13,8 @@ function Exercise1() {
 // EXERCISE 2: Create (and return) a string with at least 5 characters
 function Exercise2() {
 
-  // Your code here.
+  var s = "Hello";
+  return s;
 
 }
 
@@ -21,6 +22,7 @@ function Exercise2() {
 // EXERCISE 3: Create (and return) an array that has at least 5 elements
 function Exercise3() {
 
-  // Your code here.
+  var a = [ "World", 42, true, null, 'interesting' ];
+  return a;
 
 }

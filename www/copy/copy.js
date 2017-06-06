@@ -8,7 +8,14 @@
  *
  */
 copy = function(object) {
+  var dup = {};
 
-  // Your code here.
+  for (var prop in object) {
+    if (object.hasOwnProperty(prop)) {
+      dup[prop] = object[prop];
+    }
+  }
 
+  // `dup' is now a shallow copy of `object'.
+  return dup;
 };
