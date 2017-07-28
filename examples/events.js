@@ -10,7 +10,4 @@ node.addEventListener("click", function(event) {
 
   // You can stop default browser behavior:
   event.preventDefault();
-
-  // Or you can stop the event from bubbling up:
-  event.stopPropagation();
 });
