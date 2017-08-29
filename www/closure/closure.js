@@ -12,6 +12,28 @@
 //
 ClosureExercise = function() {
 
-  // Your code here.
+  var temp = 0;
 
+  var getTemp = function() {
+    return temp;
+  };
+
+  var setTemp = function(x) {
+    // if (x >= 0 && x <= 100) {
+      temp = x;
+    // }
+  };
+
+  return {
+    getTemp: getTemp,
+    setTemp: setTemp
+  };
+};
+
+SmallerExercise = function() {
+  var temp = 0;
+  return {
+    getTemp: function()  { return temp; },
+    setTemp: function(x) { temp = x;    }
+  };
 };

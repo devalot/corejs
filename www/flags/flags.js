@@ -65,6 +65,68 @@
  */
 (function() { // Keep this line.
 
-  // Your code here.
+var Bucket = function(selector) {
+  this.element = document.querySelector(selector);
+};
 
-})(); // Keep this line too.
+// Insert the given node into the bucket.
+Bucket.prototype.insert = function(node) {
+  var li = this.wrap(node);
+  this.element.appendChild(li);
+};
+
+// Insert the node found using the given selector.
+Bucket.prototype.insertFromSelector = function(selector) {
+  this.insert(document.querySelector(selector));
+};
+
+// Ensure the given node is inside an <li>.
+Bucket.prototype.wrap = function(node) {
+  if (node.tagName === "LI") return node;
+
+  var li = document.createElement("LI");
+  li.appendChild(node);
+  return li;
+};
+
+// BONUS:
+Bucket.prototype.scan = function(node) {
+  switch (node.nodeType) {
+  case 1: // Element
+  case 9: // Document
+    for (var i=0; i<node.childNodes.length; ++i) {
+      this.scan(node.childNodes[i]);
+    }
+    break;
+
+  case 3: // Text Node
+    if (node.nodeValue.match(/FLAG #\d/)) {
+      this.insert(node.parentNode);
+    }
+    break;
+  }
+};
+var bucket = new Bucket("#bucket ul");
+var bonusMode = true;
+
+if (bonusMode) {
+  bucket.scan(document);
+} else {
+  // Flag #1:
+  bucket.insertFromSelector(".main li.foo");
+
+  // Flag #2:
+  bucket.insertFromSelector("#articles p a span");
+
+  // Flag #3:
+  var footerDiv = document.querySelector(".footer div div");
+  var flag3 = footerDiv.children[1].children[0];
+  bucket.insert(flag3);
+
+  // Flag #4:
+  var flag4 = document.querySelector("#article-3 span");
+  var flag5 = flag4.parentNode;
+
+  bucket.insert(flag4);
+  bucket.insert(flag5);
+}})(); // Keep this line too.

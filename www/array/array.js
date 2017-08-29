@@ -17,9 +17,12 @@ var users = [
 // The function below should return an array of users from the TEST
 // DATA above that only includes users under the age of 18.
 function Exercise1() {
+  return users.filter(function(u) {
+    return u.age < 18;
+  });
 
-  // Your code here.
-
+  // Using ES2015 arrow functions:
+  return users.filter(u => u.age < 18);
 }
 
 /****************************************************************************/
@@ -29,9 +32,12 @@ function Exercise1() {
 // should be all of the usernames from the TEST DATA above, in the
 // same order.
 function Exercise2() {
+  return users.map(function(u) {
+    return u.username;
+  });
 
-  // Your code here.
-
+  // Using ES2015 arrow functions:
+  return users.map(u => u.username);
 }
 
 /****************************************************************************/
@@ -42,9 +48,11 @@ function Exercise2() {
 // `toString()` method) from the TEST DATA above where the user is
 // over the age of 20 and younger than 40.
 function Exercise3() {
-
-  // Your code here.
-
+  return users.filter(function(u) {
+    return u.age > 20 && u.age < 40;
+  }).map(function(u) {
+    return u.id.toString();
+  });
 }
 
 /****************************************************************************/

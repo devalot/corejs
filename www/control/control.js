@@ -5,9 +5,11 @@
 // to the number 42.  Otherwise return false.  Use an `if' statement
 // to achieve this.
 function Exercise1 (input) {
-
-  // Your code here.
-
+  if (input == 42) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 /****************************************************************************/
@@ -19,9 +21,13 @@ function Exercise1 (input) {
 //
 // Use an `if' statement to achieve this.
 function Exercise2 (input) {
-
-  // Your code here.
-
+  if (input === 42) {
+    return true;
+  } else if (input === 43) {
+    return null;
+  } else {
+    return false;
+  }
 }
 
 /****************************************************************************/
@@ -29,10 +35,16 @@ function Exercise2 (input) {
 //
 // Repeat exercise 2, this time using a `switch' statement.
 function Exercise3 (input) {
-
-  // Your code here.
-
+  switch (input) {
+  case 42:
+    return true;
+  case 43:
+    return null;
+  default:
+    return false;
+  }
 }
+
 
 /****************************************************************************/
 // EXERCISE 4:
@@ -45,9 +57,9 @@ function Exercise3 (input) {
 //     counter();
 //
 function Exercise4 (counter) {
-
-  // Your code here.
-
+  for (var i=0; i<3; ++i) {
+    counter();
+  }
 }
 
 /****************************************************************************/
@@ -56,7 +68,11 @@ function Exercise4 (counter) {
 // The function below will be called with an array of numbers.  Return
 // the sum of those numbers.
 function Exercise5 (numbers) {
+  var sum = 0;
 
-  // Your code here.
+  for (var i=0; i<numbers.length; ++i) {
+    sum += numbers[i];
+  }
 
+  return sum;
 }

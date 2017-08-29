@@ -26,6 +26,66 @@
 //
 (function() {
 
-  // Your code here.
+var View = function(selector) {
+  this.element = document.querySelector(selector);
+  this.items = [];
+};
 
+View.prototype.render = function(items, callback) {
+  var self = this;
+  self.items = items;
+  self.element.innerHTML = "";
+
+  self.items.forEach(function(item, index) {
+    var li = document.createElement("LI");
+    li.setAttribute("data-item-id", index);
+    li.textContent = callback(item);
+    self.element.appendChild(li);
+  });
+};
+
+View.prototype.clicked = function(callback) {
+  var self = this;
+
+  this.element.addEventListener("click", function(e) {
+    var id = e.target.getAttribute("data-item-id");
+    if (id !== null && self.items[id]) callback(self.items[id]);
+  });
+};
+
+var getJSON = function(url, callback) {
+  var request = new XMLHttpRequest();
+
+  request.addEventListener("load", function() {
+    if (request.status >= 200 && request.status < 300) {
+      callback(JSON.parse(request.responseText));
+    }
+  });
+
+  request.open("GET", url);
+  request.send();
+};
+
+var button = document.querySelector("button");
+var artistView = new View("#artists");
+
+button.addEventListener("click", function() {
+  getJSON("/api/artists", function(artists) {
+    artistView.render(artists, function(artist) {
+      return artist.name + " (" +
+        artist.formation_year + ")";
+    });
+  });
+});
+
+artistView.clicked(function(artist) {
+  var albumsView = new View("#details");
+
+  getJSON("/api/artists/" + artist.id + "/albums",
+          function(albums) {
+            albumsView.render(albums, function(album) {
+              return album.name;
+            });
+          });
+});
 })();
