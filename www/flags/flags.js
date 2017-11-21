@@ -65,6 +65,35 @@
  */
 (function() { // Keep this line.
 
-  // Your code here.
+  var Bucket = function(selector) {
+    this.element = document.querySelector(selector);
+  };
 
+  Bucket.prototype.wrapInLi = function(node) {
+    if (node.tagName === "LI") return node;
+    var li = document.createElement("LI");
+    li.appendChild(node);
+    return li;
+  };
+
+  Bucket.prototype.insertNode = function(node) {
+    this.element.appendChild(this.wrapInLi(node));
+  };
+
+  Bucket.prototype.insertFromSelector = function(selector) {
+    this.insertNode(document.querySelector(selector));
+  };
+
+  var bucket = new Bucket("#bucket ul");
+
+  bucket.insertFromSelector(".main li.foo");
+  bucket.insertFromSelector("article a span");
+
+  var flag3Ancestor = document.querySelector(".footer div div");
+  bucket.insertNode(flag3Ancestor.children[1].firstElementChild);
+
+  var flag4 = document.querySelector("#article-3 span");
+  var flag5 = flag4.parentNode;
+  bucket.insertNode(flag4);
+  bucket.insertNode(flag5);
 })(); // Keep this line too.

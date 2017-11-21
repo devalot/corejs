@@ -26,6 +26,65 @@
 //
 (function() {
 
-  // Your code here.
+  var GenericView = function(selector, callback) {
+    this.element = document.querySelector(selector);
+    this.callback = callback;
+  };
+
+  GenericView.prototype.render = function(data) {
+    var self = this;
+
+    this.element.innerHTML = ""; // Clear out the view.
+
+    data.forEach(function(item) {
+      var li = document.createElement("LI");
+      self.callback(item, li);
+      self.element.appendChild(li);
+    });
+  };
+
+  GenericView.prototype.fetch = function(path) {
+    var self = this;
+    var request = new XMLHttpRequest();
+
+    request.addEventListener("load", function() {
+      if (request.status === 200) {
+        self.render(JSON.parse(request.responseText));
+      }
+    });
+
+    // No error handling :(
+
+    request.open("GET", path);
+    request.send();
+  };
+
+  GenericView.prototype.onClick = function(handler) {
+    this.element.addEventListener("click", function(e) {
+      var li = e.target;
+      while (li.tagName !== "LI") li = li.parentNode;
+      handler(li);
+    });
+  };
+
+  var button = document.querySelector("button");
+
+  var artistsView = new GenericView("#artists", function(artist, li) {
+    li.textContent = artist.name;
+    li.setAttribute("data-artist-id", artist.id);
+  });
+
+  var albumsView = new GenericView("#details", function(album, li) {
+    li.textContent = album.name;
+  });
+
+  artistsView.onClick(function(li) {
+    var id = li.getAttribute("data-artist-id");
+    if (id) albumsView.fetch("/api/artists/" + id + "/albums");
+  });
+
+  button.addEventListener("click", function() {
+    artistsView.fetch("/api/artists");
+  });
 
 })();
