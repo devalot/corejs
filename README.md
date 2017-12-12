@@ -1,7 +1,7 @@
-# Core JavaScript Exercises and Demos
+# JavaScript Fundamentals (CoreJS) Exercises and Demos
 
-This is the source code for the Core JavaScript course taught by
-[Peter J. Jones][pjones].
+This is the source code for the JavaScript Fundamentals course taught
+by [Peter J. Jones][pjones].
 
 ## Prerequisites
 
